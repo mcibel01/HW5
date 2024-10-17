@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Tic Tac Toe - Part 4</title>
+    <style>
+        /* h1 */
+        h1 {
+            margin-top: 20px;
+            font-size: 70px;
+            text-align: center;
+        }
+        /* 3x3 grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 5px;
+            width: max-content; 
+            margin: auto;
+            padding-top: 50px;
+        }
+        /* Individual squares */
+        .square {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 90px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            border: 1px solid #333;
+        }
+        /* Hover effect */
+        .square:hover {
+            background-color: #A9A9A9;
+        }
+        /* turn indecator and win indicator */
+        .turn-indicator, .win-indicator {
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px;
+            font-size: 20px;
+            text-align: center;
+            width: 200px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        /* start game button */
+        .start-button {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: -30px;
+
+        }
+    </style>
+  </head>
+<body>
+    <!-- Title -->
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Start Game button to reset the board -->
+    <div class="start-button">
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Player turn indicator -->
+    <div class="turn-indicator" id="turnIndicator">X's Turn</div>
+
+    <!-- Grid for squares -->
+    <div class="grid">
+        <script>
+            const NUM_SQUARES = 9;
+            // Create the grid squares
+            for (i = 0; i < NUM_SQUARES; i++) {
+                id = "sq" + i; 
+                document.write("<div class='square' id='" + id + "'></div>"); 
+            }
+        </script>
+    </div>
+    <br> 
+    <!-- Win condition display -->
+    <div class="win-indicator" id="winIndicator">Game On</div>
+    
+    <script>
+        let currentPlayer; 
+        let moves = Array(9).fill("-"); 
+        const winIndicator = document.getElementById("winIndicator");
+    
+        // Define win conditions 
+        const winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+    
+        // Function to set a random starting player
+        function setRandomStartingPlayer() {
+            currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
+            document.getElementById("turnIndicator").innerText = currentPlayer + "'s Turn";
+        }
+    
+        // Event handler for each square
+        function handleSquareClick(event) {
+            const square = event.target;
+            const squareIndex = parseInt(square.id.replace("sq", ""));
+    
+            if (square.innerText !== "" || document.getElementById("winIndicator").innerText !== "Game On") return;
+            square.innerText = currentPlayer;
+            updateMoves();
+    
+            if (checkWin()) {
+                document.getElementById("winIndicator").innerText = currentPlayer + " Wins!";
+            } else if (!moves.includes("-")) {
+                document.getElementById("winIndicator").innerText = "Stalemate!";
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                document.getElementById("turnIndicator").innerText = currentPlayer + "'s Turn";
+            }
+        }
+    
+        // Update moves array to reflect the current state of the board
+        function updateMoves() {
+            moves = [];
+            document.querySelectorAll(".square").forEach(square => {
+                moves.push(square.innerText || "-");
+            });
+        }
+    
+        // Check for win condition using the moves array and winConditions
+        function checkWin() {
+            return winConditions.some(condition => 
+                condition.every(index => moves[index] === currentPlayer)
+            );
+        }
+    
+        // Attach event listeners to each square
+        for (i = 0; i < NUM_SQUARES; i++) {
+            square = document.getElementById("sq" + i);
+            square.addEventListener("click", handleSquareClick);
+        }
+    
+        // Start Game function to reset the board and set a random starting player
+        function startGame() {
+            document.querySelectorAll(".square").forEach(square => square.innerText = "");
+            moves = Array(9).fill("-");
+            document.getElementById("winIndicator").innerText = "Game On";
+            setRandomStartingPlayer();
+        }
+    
+        // Set the random starting player when the page first loads
+        setRandomStartingPlayer();
+    </script>
+    
+    </body>
+    </html>

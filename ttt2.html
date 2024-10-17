@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Tic Tac Toe - Part 2</title>
+    <style>
+        /* h1 */
+        h1 {
+            margin-top: 20px;
+            font-size: 70px;
+            text-align: center;
+        }
+        /* 3x3 grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 5px;
+            width: max-content; 
+            margin: auto;
+            padding-top: 50px;
+        }
+        /* Individual squares */
+        .square {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 90px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            border: 1px solid #333;
+        }
+        /* Hover effect */
+        .square:hover {
+            background-color: #A9A9A9;
+        }
+        .turn-indicator, .win-indicator {
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px;
+            font-size: 1.2em;
+            text-align: center;
+            width: 200px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+  </head>
+<body>
+    <!-- Title -->
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Player turn indicator -->
+    <div class="turn-indicator" id="turnIndicator">X's Turn</div>
+
+    <!-- Grid for squares -->
+    <div class="grid">
+        <script>
+            const NUM_SQUARES = 9;
+
+            // Create the grid squares
+            for (i = 0; i < NUM_SQUARES; i++) {
+                id = "sq" + i; 
+                document.write("<div class='square' id='" + id + "'></div>"); 
+            }
+        </script>
+    </div>
+    <br> 
+    <!-- Win condition display -->
+    <div class="win-indicator" id="winIndicator">Game On</div>
+
+    <script>
+        // Place an X in row 1, column 3 and an O in row 2, column 1
+        document.getElementById("sq2").innerText = "X";
+        document.getElementById("sq3").innerText = "O";
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Tic Tac Toe - Part 3</title>
+    <style>
+        /* h1 */
+        h1 {
+            margin-top: 20px;
+            font-size: 70px;
+            text-align: center;
+        }
+        /* 3x3 grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 5px;
+            width: max-content; 
+            margin: auto;
+            padding-top: 50px;
+        }
+        /* Individual squares */
+        .square {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 90px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            border: 1px solid #333;
+        }
+        /* Hover effect */
+        .square:hover {
+            background-color: #A9A9A9;
+        }
+        /* turn indecator and win indicator */
+        .turn-indicator, .win-indicator {
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px;
+            font-size: 20px;
+            text-align: center;
+            width: 200px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        /* start game button */
+        .start-button {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: -30px;
+
+        }
+    </style>
+  </head>
+<body>
+    <!-- Title -->
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Start Game button to reset the board -->
+    <div class="start-button">
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Player turn indicator -->
+    <div class="turn-indicator" id="turnIndicator">X's Turn</div>
+
+    <!-- Grid for squares -->
+    <div class="grid">
+        <script>
+            const NUM_SQUARES = 9;
+            for (i = 0; i < NUM_SQUARES; i++) {
+                id = "sq" + i; 
+                document.write("<div class='square' id='" + id + "'></div>"); 
+            }
+        </script>
+    </div>
+    <br> 
+    <!-- Win condition display -->
+    <div class="win-indicator" id="winIndicator">Game On</div>
+
+
+    <script>
+        // Initialize variables
+        currentPlayer = Math.random() < 0.5 ? 'X' : 'O'; // Randomly choose starting player
+        document.getElementById("turnIndicator").innerText = currentPlayer + "'s Turn";
+
+        // Event handler for each square
+        function handleSquareClick(event) {
+            const square = event.target;
+            if (square.innerText !== "") return;
+            square.innerText = currentPlayer;
+            alert("Square " + square.id.replace("sq", "") + " clicked!");
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById("turnIndicator").innerText = currentPlayer + "'s Turn";
+        }
+
+        // Attach event listeners to each square
+        for (i = 0; i < NUM_SQUARES; i++) {
+            square = document.getElementById("sq" + i);
+            square.addEventListener("click", handleSquareClick);
+        }
+
+        // Start Game function to reset the board
+        function startGame() {
+            for (i = 0; i < NUM_SQUARES; i++) {
+                document.getElementById("sq" + i).innerText = "";
+            }
+
+            currentPlayer = Math.random() < 0.5 ? 'X' : 'O'; 
+            document.getElementById("turnIndicator").innerText = currentPlayer + "'s Turn";
+
+            document.getElementById("winIndicator").innerText = "Game On";
+        }
+    </script>
+</body>
+</html>
+
+
+
+

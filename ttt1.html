@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Tic Tac Toe - Part 1</title>
+    <style>
+        /* 3x3 grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 5px;
+            width: max-content; 
+            margin: auto;
+            padding-top: 50px;
+        }
+        /* Individual squares */
+        .square {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 90px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            border: 1px solid #333;
+        }
+        /* Hover effect */
+        .square:hover {
+            background-color: #A9A9A9;
+        }
+    </style>
+  </head>
+<body>
+    <div class="grid">
+        <div class="square"></div>
+        <div class="square">X</div>
+        <div class="square"></div>
+        <div class="square">O</div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square">X</div>
+        <div class="square"></div>
+    </div>
+</body>
+</html>
